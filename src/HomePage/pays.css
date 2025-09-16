@@ -1,0 +1,87 @@
+.region-selection {
+  background: linear-gradient(to right, #e0f7fa, #ffffff);
+  padding: 4rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.region-panel {
+  background-color: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  width: 100%;
+  text-align: center;
+}
+
+.region-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+.region-card {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.region-card:hover {
+  transform: translateY(-4px);
+}
+
+.region-card.inactive {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.region-flag {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.75rem;
+}
+
+.region-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.region-status {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .region-title {
+    font-size: 1.5rem;
+  }
+
+  .region-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+
+  .region-flag {
+    width: 50px;
+    height: 50px;
+  }
+}
