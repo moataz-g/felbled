@@ -1,153 +1,105 @@
-import React, { useState, useRef, useEffect } from "react";
-import "./App.css";
-import Logo1 from "./public/logoR.png";
-import { MdViewList, MdGTranslate } from "react-icons/md";
-import { FaHome, FaInfoCircle, FaEnvelope } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import "./i18n";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import AboutUs from './components/AboutUs';
+import ContactUs from './components/ContactUs';
+import SignInSignUp from './components/SignInSignUp';
+import HomePage from './components/Homepage'; // Your home component
+import Footer from './components/Footer';
+import CountrySelector from './components/CountrySelector';
+import SearchResults from './components/ServiceList';
+import { useState } from 'react';
 
-const App = () => {
-  const { i18n } = useTranslation();
-  const [activeSection, setActiveSection] = useState("home");
-  const [isMobileNavbarOpen, setIsMobileNavbarOpen] = useState(false);
-  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const languageDropdownRef = useRef(null);
-  const navigate = useNavigate();
+function App() {
+  const [currentCountry, setCurrentCountry] = useState(/* your country state */);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const navbar = document.querySelector(".navbar");
-      if (window.scrollY > 50) {
-        navbar.classList.add("scrolled");
-      } else {
-        navbar.classList.remove("scrolled");
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        languageDropdownRef.current &&
-        !languageDropdownRef.current.contains(event.target)
-      ) {
-        setIsLanguageDropdownOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const goToSection = (section) => {
-    setActiveSection(section);
-    setIsMobileNavbarOpen(false);
-    navigate("/", { state: { activeSection: section } });
+  const handleCountryChange = () => {
+    // Your country change logic
   };
-
-  const handleLanguageChange = (language) => {
-    if (language === "French") i18n.changeLanguage("fr");
-    else if (language === "Arabic") i18n.changeLanguage("ar");
-    else i18n.changeLanguage("en");
-    setIsLanguageDropdownOpen(false);
+const countries = {
+    tunisia: {
+      name: 'Tunisia',
+      nameAr: 'تونس',
+      flag: '🇹🇳',
+      cultural: {
+        bgIcon: '🏛️',
+        culturalElements: ['🫒', '🏺', '🌊']
+      },
+      cities: ['Tunis', 'Sfax', 'Sousse', 'Kairouan', 'Bizerte', 'Gabes', 'Ariana', 'Gafsa'],
+      popularServices: ['Doctor', 'Plumber', 'Electrician', 'Lawyer', 'Dentist', 'Mechanic']
+    },
+    egypt: {
+      name: 'Egypt',
+      nameAr: 'مصر',
+      flag: '🇪🇬',
+      cultural: {
+        bgIcon: '🔺',
+        culturalElements: ['🐪', '🏺', '🌅']
+      },
+      cities: ['Cairo', 'Alexandria', 'Giza', 'Shubra El Kheima', 'Port Said', 'Suez', 'Luxor', 'Aswan'],
+      popularServices: ['Doctor', 'Teacher', 'Engineer', 'Lawyer', 'Pharmacist', 'Accountant']
+    },
+    algeria: {
+      name: 'Algeria',
+      nameAr: 'الجزائر',
+      flag: '🇩🇿',
+      cultural: {
+        bgIcon: '🏔️',
+        culturalElements: ['🌴', '⭐', '🌙']
+      },
+      cities: ['Algiers', 'Oran', 'Constantine', 'Annaba', 'Blida', 'Batna', 'Djelfa', 'Sétif'],
+      popularServices: ['Doctor', 'Contractor', 'Plumber', 'Teacher', 'Mechanic', 'Electrician']
+    },
+    libya: {
+      name: 'Libya',
+      nameAr: 'ليبيا',
+      flag: '🇱🇾',
+      cultural: {
+        bgIcon: '🏛️',
+        culturalElements: ['🏺', '⭐', '🌙']
+      },
+      cities: ['Tripoli', 'Benghazi', 'Misrata', 'Tarhuna', 'Al Khums', 'Az Zawiyah', 'Ajdabiya', 'Tobruk'],
+      popularServices: ['Doctor', 'Engineer', 'Lawyer', 'Teacher', 'Mechanic', 'Electrician']
+    },
+    morocco: {
+      name: 'Morocco',
+      nameAr: 'المغرب',
+      flag: '🇲🇦',
+      cultural: {
+        bgIcon: '🕌',
+        culturalElements: ['🐪', '🌟', '🏺']
+      },
+      cities: ['Casablanca', 'Rabat', 'Fez', 'Marrakech', 'Agadir', 'Tangier', 'Meknes', 'Oujda'],
+      popularServices: ['Doctor', 'Artisan', 'Guide', 'Teacher', 'Mechanic', 'Carpenter']
+    }
   };
 
   return (
-    <div className="myApp">
-      {/* Desktop Navbar */}
-      <div className="navbar">
-        <div className="logo-container" onClick={() => goToSection("home")}>
-          <img src={Logo1} alt="Logo" className="logo1" />
-        </div>
-
-        <div className="icons-container">
-          <button
-            className={`icon ${activeSection === "home" ? "active" : ""}`}
-            onClick={() => goToSection("home")}
-          >
-            <FaHome className="icon-logo" />
-            Accueil
-          </button>
-          <button
-            className={`icon ${activeSection === "about" ? "active" : ""}`}
-            onClick={() => goToSection("about")}
-          >
-            <FaInfoCircle className="icon-logo" />
-            À propos
-          </button>
-          <button
-            className={`icon ${activeSection === "contact" ? "active" : ""}`}
-            onClick={() => goToSection("contact")}
-          >
-            <FaEnvelope className="icon-logo" />
-            Contact
-          </button>
-        </div>
-
-        <div className="language-icon" onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}>
-          <MdGTranslate />
-        </div>
+    <Router>
+      <div className="App">
+        <Header 
+          currentCountry={currentCountry}
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+          onCountryChange={handleCountryChange}
+        />
+        
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/Services" element={<SearchResults />} />
+          <Route path="/countries" element={<HomePage />} />
+          <Route path="/about" element={<AboutUs currentCountry={currentCountry} />} />
+          <Route path="/contact" element={<ContactUs currentCountry={currentCountry} />} />
+          <Route path="/auth" element={<SignInSignUp />} />
+      {/*    <Route path="/services" element={ Your services component } />  
+          <Route path="/become-provider" element={ Your provider registration component } />
+          <Route path="/signup" element={ Your signup component } /> */}
+        </Routes>
+        <Footer countries={countries} />
       </div>
-
-      {/* Language Dropdown */}
-      {isLanguageDropdownOpen && (
-        <div ref={languageDropdownRef} className="language-dropdown">
-          <ul>
-            <li onClick={() => handleLanguageChange("English")}>
-              <img src="/flags/gb.svg" alt="English" /> English
-            </li>
-            <li onClick={() => handleLanguageChange("French")}>
-              <img src="/flags/fr.svg" alt="Français" /> Français
-            </li>
-            <li onClick={() => handleLanguageChange("Arabic")}>
-              <img src="/flags/sa.svg" alt="العربية" /> العربية
-            </li>
-          </ul>
-        </div>
-      )}
-
-      {/* Mobile Navbar */}
-      <div className={`mobile-navbar ${isMobileNavbarOpen ? "open" : ""}`}>
-        <div className="mobile-navbar-header">
-          <img
-            src={Logo1}
-            alt="Logo"
-            className="logo1"
-            onClick={() => goToSection("home")}
-          />
-          <div className="mobile-svgs">
-            <MdGTranslate onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)} />
-            <MdViewList onClick={() => setIsMobileNavbarOpen(!isMobileNavbarOpen)} />
-          </div>
-        </div>
-
-        {isMobileNavbarOpen && (
-          <div className="mobile-navbar-menu">
-            <button
-              className={`mobile-navbar-item ${activeSection === "home" ? "active" : ""}`}
-              onClick={() => goToSection("home")}
-            >
-              Home
-            </button>
-            <button
-              className={`mobile-navbar-item ${activeSection === "about" ? "active" : ""}`}
-              onClick={() => goToSection("about")}
-            >
-              About
-            </button>
-            <button
-              className={`mobile-navbar-item ${activeSection === "contact" ? "active" : ""}`}
-              onClick={() => goToSection("contact")}
-            >
-              Contact
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
+    </Router>
   );
-};
+}
 
 export default App;
