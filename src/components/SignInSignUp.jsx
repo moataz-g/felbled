@@ -84,7 +84,7 @@ const SignInSignUp = ({ currentCountry, onClose, onSwitchToForgotPassword }) => 
     'Other'
   ];
   const backgroundImageUrl = '/bg.jpg'; // replace with your image URL
-
+  const logoImageUrl = '/logo.png';
   return (
         <div 
       className="fixed inset-0 flex items-center justify-center p-4 z-50"
@@ -107,8 +107,12 @@ const SignInSignUp = ({ currentCountry, onClose, onSwitchToForgotPassword }) => 
             </button>
           )}
           <div className="text-center">
-            <div className="w-12 h-12 bg-gradient-to-br from-teal-400 to-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-lg font-bold text-white">F</span>
+            <div className="w-12 h-12  flex items-center justify-center mx-auto mb-4">
+                            <img 
+                src={logoImageUrl} 
+                alt="Logo" 
+                className="w-16 h-16 object-contain" // Adjust size as needed
+              />
             </div>
             <h2 className="text-2xl font-bold text-gray-900">
               {isSignIn ? 'Welcome Back' : 'Join Felbled'}

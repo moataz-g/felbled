@@ -1,16 +1,20 @@
 import React from 'react';
 
 const Footer = ({ countries, selectedCountry, onCountrySelect }) => {
+    const logoImageUrl = '/logo.png';
   return (
     <footer className="bg-gradient-to-r from-cyan-600 to-emerald-400 text-gray-300 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-teal-400 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-sm font-bold text-white">F</span>
+              <div className=" bg-white flex items-center justify-center">
+                              <img 
+                src={logoImageUrl} 
+                alt="Logo" 
+                className="w-20 h-20 object-contain" // Adjust size as needed
+              />
               </div>
-              <h3 className="text-white font-semibold text-xl">Felbled</h3>
             </div>
             <p className="text-gray-400 mb-4">
               Connecting communities with trusted services across North Africa

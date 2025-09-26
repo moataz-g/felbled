@@ -23,7 +23,7 @@ const Hero = ({
 
   return (
     <>
-      <section className="bg-gradient-to-r from-cyan-600 to-emerald-400 text-white py-20 relative overflow-hidden z-10">
+      <section className="bg-gradient-to-r from-cyan-600 to-emerald-400 text-white py-10 relative overflow-hidden z-10 shadow-">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Find Trusted Services<br />
@@ -47,6 +47,17 @@ const Hero = ({
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
+                   {/*         <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                <input
+                  type="text"
+                  placeholder="keyword"
+                  className="w-full pl-10 pr-4 py-4 text-gray-700 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>*/}
+              
               <div className="relative">
                 <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <select
